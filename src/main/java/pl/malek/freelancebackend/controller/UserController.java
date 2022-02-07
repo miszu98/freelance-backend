@@ -5,11 +5,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.malek.freelancebackend.dto.User;
+import pl.malek.freelancebackend.dto.UserExistResponse;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
 import pl.malek.freelancebackend.exception.UserAlreadyExistException;
 import pl.malek.freelancebackend.service.UserService;
@@ -30,6 +28,15 @@ public class UserController {
             throws UserAccountValidationException, UserAlreadyExistException {
         log.info("Register user running... " + user);
         return ResponseEntity.status(HttpStatus.OK).body(userService.register(user, result));
+    }
+
+    @GetMapping("/{email}")
+    public ResponseEntity<UserExistResponse> checkIfUserExist(@PathVariable String email) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                UserExistResponse.builder()
+                        .status(userService.checkIfUserExist(email))
+                        .build()
+        );
     }
 
 

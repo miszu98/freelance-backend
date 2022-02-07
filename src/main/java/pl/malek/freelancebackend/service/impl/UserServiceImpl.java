@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
             throw new UserAccountValidationException(getErrorMessages(result.getAllErrors()));
         }
 
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+        if (checkIfUserExist(user.getEmail())) {
             log.error(String.format("User already exist with email: %s", user.getEmail()));
             throw new UserAlreadyExistException(String.format("User with email: %s already exist", user.getEmail()));
         }
@@ -52,6 +52,10 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(userEntity, User.class);
     }
 
+    @Override
+    public boolean checkIfUserExist(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
 
     private List<String> getErrorMessages(List<ObjectError> errors) {
         return errors.stream().map(ObjectError::getDefaultMessage)

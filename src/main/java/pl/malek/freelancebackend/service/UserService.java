@@ -9,5 +9,5 @@ import pl.malek.freelancebackend.exception.UserAlreadyExistException;
 public interface UserService {
 
     User register(User user, BindingResult result) throws UserAccountValidationException, UserAlreadyExistException;
-
+    boolean checkIfUserExist(String email);
 }
