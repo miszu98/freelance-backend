@@ -2,21 +2,16 @@ package pl.malek.freelancebackend.service.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import pl.malek.freelancebackend.dto.ExceptionResponse;
-import pl.malek.freelancebackend.exception.enums.ErrorCodes;
+import pl.malek.freelancebackend.entity.UserEntity;
 import pl.malek.freelancebackend.repository.UserRepository;
 import pl.malek.freelancebackend.dto.User;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
 import pl.malek.freelancebackend.service.UserService;
-import pl.malek.freelancebackend.utils.Utils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,13 +22,16 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    private final ModelMapper modelMapper;
+
     @Override
     public User register(User user, BindingResult result)
             throws UserAccountValidationException {
         if (result.hasErrors()) {
+            log.info(getErrorMessages(result.getAllErrors()).toString());
             throw new UserAccountValidationException(getErrorMessages(result.getAllErrors()));
         }
-        return null;
+        return modelMapper.map(userRepository.save(modelMapper.map(user, UserEntity.class)), User.class);
     }
 
 

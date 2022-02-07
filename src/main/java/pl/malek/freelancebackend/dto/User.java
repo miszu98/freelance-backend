@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Data
@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class User {
 
-    @NotNull(message = "Field 'email' cannot be blank")
+    @NotBlank(message = "Field 'email' may be not blank")
     @Email(message = "Field 'email' is wrong format")
     private String email;
 
