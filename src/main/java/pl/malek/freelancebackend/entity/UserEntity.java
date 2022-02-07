@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import pl.malek.freelancebackend.exception.enums.Role;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -37,5 +38,8 @@ public class UserEntity {
     private String lastName;
 
     private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }

@@ -4,9 +4,10 @@ import org.springframework.validation.BindingResult;
 import pl.malek.freelancebackend.dto.User;
 import pl.malek.freelancebackend.entity.UserEntity;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
+import pl.malek.freelancebackend.exception.UserAlreadyExistException;
 
 public interface UserService {
 
-    User register(User user, BindingResult result) throws UserAccountValidationException;
+    User register(User user, BindingResult result) throws UserAccountValidationException, UserAlreadyExistException;
 
 }

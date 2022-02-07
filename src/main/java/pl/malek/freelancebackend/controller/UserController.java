@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.malek.freelancebackend.dto.User;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
+import pl.malek.freelancebackend.exception.UserAlreadyExistException;
 import pl.malek.freelancebackend.service.UserService;
 
 import javax.validation.Valid;
@@ -26,8 +27,8 @@ public class UserController {
 
     @PostMapping("/")
     public ResponseEntity<?> register(@Valid @RequestBody User user, BindingResult result)
-            throws UserAccountValidationException {
-        log.info("Register user running..." + user);
+            throws UserAccountValidationException, UserAlreadyExistException {
+        log.info("Register user running... " + user);
         return ResponseEntity.status(HttpStatus.OK).body(userService.register(user, result));
     }
 

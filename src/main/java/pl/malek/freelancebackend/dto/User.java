@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.malek.freelancebackend.exception.enums.Role;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -30,4 +31,5 @@ public class User {
     @Size(min = 9, max = 9, message = "Field 'phoneNumber' length should be equals 9")
     private String phoneNumber;
 
+    private Role role;
 }
