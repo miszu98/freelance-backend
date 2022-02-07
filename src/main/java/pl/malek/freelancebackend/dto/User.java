@@ -28,8 +28,5 @@ public class User {
     @Size(min = 2, message = "Field 'lastName' length should be greater than 2")
     private String lastName;
 
-    @Size(min = 9, max = 9, message = "Field 'phoneNumber' length should be equals 9")
-    private String phoneNumber;
-
     private Role role;
 }

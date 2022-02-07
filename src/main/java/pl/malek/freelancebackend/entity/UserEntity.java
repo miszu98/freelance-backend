@@ -37,8 +37,6 @@ public class UserEntity {
 
     private String lastName;
 
-    private String phoneNumber;
-
     @Enumerated(EnumType.STRING)
     private Role role;
 
