@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.malek.freelancebackend.dto.Credentials;
 import pl.malek.freelancebackend.dto.User;
 import pl.malek.freelancebackend.dto.UserExistResponse;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
@@ -28,6 +29,11 @@ public class UserController {
             throws UserAccountValidationException, UserAlreadyExistException {
         log.info("Register user running... " + user);
         return ResponseEntity.status(HttpStatus.OK).body(userService.register(user, result));
+    }
+
+    @PostMapping("/auth")
+    public ResponseEntity<?> authenticate(@RequestBody Credentials credentials) throws Exception {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.authenticate(credentials));
     }
 
     @GetMapping("/{email}")

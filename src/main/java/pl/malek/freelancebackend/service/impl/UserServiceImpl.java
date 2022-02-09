@@ -3,12 +3,20 @@ package pl.malek.freelancebackend.service.impl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import pl.malek.freelancebackend.dto.Credentials;
+import pl.malek.freelancebackend.dto.JwtResponse;
 import pl.malek.freelancebackend.entity.UserEntity;
 import pl.malek.freelancebackend.exception.UserAlreadyExistException;
 import pl.malek.freelancebackend.exception.enums.Role;
@@ -32,6 +40,12 @@ public class UserServiceImpl implements UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final UserDetailsService userDetailsService;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final JwtTokenUtil jwtTokenUtil;
+
     @Override
     @Transactional
     public User register(User user, BindingResult result)
@@ -50,6 +64,24 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.save(modelMapper.map(user, UserEntity.class));
         log.info("Saving user to database...");
         return modelMapper.map(userEntity, User.class);
+    }
+
+    @Override
+    public JwtResponse authenticate(Credentials credentials) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    credentials.getEmail(), credentials.getPassword()
+            ));
+        } catch (DisabledException e) {
+            throw new Exception("USER_DISABLED", e);
+        } catch (BadCredentialsException e) {
+            throw new Exception("INVALID_CREDENTIALS", e);
+        }
+        return createToken(userDetailsService.loadUserByUsername(credentials.getEmail()));
+    }
+
+    private JwtResponse createToken(UserDetails userDetails) {
+        return JwtResponse.builder().token(jwtTokenUtil.generateToken(userDetails)).build();
     }
 
     @Override
