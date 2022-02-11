@@ -8,6 +8,7 @@
         <version>2.6.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <packaging>jar</packaging>
     <groupId>pl.malek</groupId>
     <artifactId>freelance-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -71,6 +72,7 @@
     </dependencies>
 
     <build>
+        <finalName>freelance</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
