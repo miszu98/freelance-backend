@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import pl.malek.freelancebackend.Validators.ValidPassword;
 import pl.malek.freelancebackend.exception.enums.Role;
 
 import javax.validation.constraints.Email;
@@ -20,6 +21,7 @@ public class User {
     @Email(message = "Field 'email' is wrong format")
     private String email;
 
+    @ValidPassword
     private String password;
 
     @Size(min = 2, message = "Field 'firstName' length should be greater than 2")
