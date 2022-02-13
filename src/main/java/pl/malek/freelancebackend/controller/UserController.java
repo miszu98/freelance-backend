@@ -11,7 +11,6 @@ import pl.malek.freelancebackend.dto.User;
 import pl.malek.freelancebackend.dto.UserExistResponse;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
 import pl.malek.freelancebackend.exception.UserAlreadyExistException;
-import pl.malek.freelancebackend.repository.UserRepository;
 import pl.malek.freelancebackend.service.UserService;
 
 import javax.validation.Valid;
