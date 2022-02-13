@@ -3,7 +3,6 @@ package pl.malek.freelancebackend;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -15,11 +14,9 @@ import pl.malek.freelancebackend.service.impl.ProcessRegisterUserServiceImpl;
 
 import java.util.UUID;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+
 
 
 @ExtendWith(MockitoExtension.class)
