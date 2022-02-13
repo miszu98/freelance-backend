@@ -47,8 +47,8 @@ public class UserEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
     private ProcessEntity processEntity;
 
-    @Column(name = "account_active", columnDefinition = "bool default true")
-    private boolean accountActive;
+    @Column(name = "account_active")
+    private boolean accountActive = true;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
