@@ -1,8 +1,8 @@
 package pl.malek.freelancebackend.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
-    private final ModelMapper modelMapper;
+    private final ObjectMapper objectMapper;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -66,12 +66,12 @@ public class UserServiceImpl implements UserService {
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        UserEntity userEntity = userRepository.save(modelMapper.map(user, UserEntity.class));
+        UserEntity userEntity = userRepository.save(objectMapper.convertValue(user, UserEntity.class));
         log.info("Saving user to database...");
 
         processRegisterUserService.saveProcess(userEntity);
 
-        return modelMapper.map(userEntity, User.class);
+        return objectMapper.convertValue(userEntity, User.class);
     }
 
     @Override
