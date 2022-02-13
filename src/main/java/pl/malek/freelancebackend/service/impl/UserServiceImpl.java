@@ -23,6 +23,7 @@ import pl.malek.freelancebackend.exception.enums.Role;
 import pl.malek.freelancebackend.repository.UserRepository;
 import pl.malek.freelancebackend.dto.User;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
+import pl.malek.freelancebackend.service.ProcessRegisterUserService;
 import pl.malek.freelancebackend.service.UserService;
 
 import java.util.List;
@@ -46,6 +47,8 @@ public class UserServiceImpl implements UserService {
 
     private final JwtTokenUtil jwtTokenUtil;
 
+    private final ProcessRegisterUserService processRegisterUserService;
+
     @Override
     @Transactional
     public User register(User user, BindingResult result)
@@ -59,10 +62,15 @@ public class UserServiceImpl implements UserService {
             log.error(String.format("User already exist with email: %s", user.getEmail()));
             throw new UserAlreadyExistException(String.format("User with email: %s already exist", user.getEmail()));
         }
+
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         UserEntity userEntity = userRepository.save(modelMapper.map(user, UserEntity.class));
         log.info("Saving user to database...");
+
+        processRegisterUserService.saveProcess(userEntity);
+
         return modelMapper.map(userEntity, User.class);
     }
 

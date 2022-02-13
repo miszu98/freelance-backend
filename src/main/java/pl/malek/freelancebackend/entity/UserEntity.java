@@ -21,22 +21,36 @@ public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @CreationTimestamp
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(name = "modified_at")
     private LocalDateTime modifiedAt;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "last_name")
     private String lastName;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private ProcessEntity processEntity;
+
+    @Column(name = "account_active", columnDefinition = "bool default true")
+    private boolean accountActive;
+
+    @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
 
