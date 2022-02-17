@@ -2,7 +2,7 @@ package pl.malek.freelancebackend.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import pl.malek.freelancebackend.exception.enums.ErrorCode;
+import pl.malek.freelancebackend.enums.ErrorCode;
 
 import java.util.List;
 

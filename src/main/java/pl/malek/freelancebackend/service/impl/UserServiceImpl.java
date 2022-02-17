@@ -19,7 +19,6 @@ import pl.malek.freelancebackend.dto.Credentials;
 import pl.malek.freelancebackend.dto.JwtResponse;
 import pl.malek.freelancebackend.entity.UserEntity;
 import pl.malek.freelancebackend.exception.UserAlreadyExistException;
-import pl.malek.freelancebackend.exception.enums.Role;
 import pl.malek.freelancebackend.repository.UserRepository;
 import pl.malek.freelancebackend.dto.User;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;

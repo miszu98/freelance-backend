@@ -15,7 +15,7 @@ import pl.malek.freelancebackend.dto.User;
 import pl.malek.freelancebackend.entity.UserEntity;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
 import pl.malek.freelancebackend.exception.UserAlreadyExistException;
-import pl.malek.freelancebackend.exception.enums.Role;
+import pl.malek.freelancebackend.enums.Role;
 import pl.malek.freelancebackend.repository.UserRepository;
 import pl.malek.freelancebackend.service.impl.ProcessRegisterUserServiceImpl;
 import pl.malek.freelancebackend.service.impl.UserServiceImpl;

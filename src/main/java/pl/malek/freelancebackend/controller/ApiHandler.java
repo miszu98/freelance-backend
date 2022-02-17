@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pl.malek.freelancebackend.dto.ExceptionResponse;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
 import pl.malek.freelancebackend.exception.UserAlreadyExistException;
-import pl.malek.freelancebackend.exception.enums.ErrorCode;
+import pl.malek.freelancebackend.enums.ErrorCode;
 import pl.malek.freelancebackend.utils.Utils;
 
 import java.time.LocalDateTime;

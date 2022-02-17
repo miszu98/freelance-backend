@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import pl.malek.freelancebackend.Validators.ValidPassword;
-import pl.malek.freelancebackend.exception.enums.Role;
+import pl.malek.freelancebackend.enums.Role;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

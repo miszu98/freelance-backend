@@ -1,4 +1,4 @@
-package pl.malek.freelancebackend.exception.enums;
+package pl.malek.freelancebackend.enums;
 
 public enum ErrorCode {
     USER_VALIDATION_ERROR,

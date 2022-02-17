@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.malek.freelancebackend.entity.ProcessEntity;
 import pl.malek.freelancebackend.entity.UserEntity;
-import pl.malek.freelancebackend.exception.enums.Role;
+import pl.malek.freelancebackend.enums.Role;
 import pl.malek.freelancebackend.repository.ProcessRegisterUserRepository;
 import pl.malek.freelancebackend.service.impl.ProcessRegisterUserServiceImpl;
 
