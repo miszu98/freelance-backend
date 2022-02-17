@@ -10,6 +10,7 @@ import pl.malek.freelancebackend.exception.enums.Role;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -52,6 +53,16 @@ public class UserEntity {
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role = Role.USER;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private List<ServiceEntity> serviceEntity;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private List<CommentEntity> comments;
+
+    @Column(name = "country")
+    private String country;
 
 }
+

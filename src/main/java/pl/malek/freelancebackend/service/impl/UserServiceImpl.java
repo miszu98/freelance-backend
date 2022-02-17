@@ -63,7 +63,6 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistException(String.format("User with email: %s already exist", user.getEmail()));
         }
 
-        user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         UserEntity userEntity = userRepository.save(objectMapper.convertValue(user, UserEntity.class));
