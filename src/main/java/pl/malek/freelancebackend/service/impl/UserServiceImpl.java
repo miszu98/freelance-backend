@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import pl.malek.freelancebackend.dto.Credentials;
 import pl.malek.freelancebackend.dto.JwtResponse;
+import pl.malek.freelancebackend.dto.UserExistResponse;
 import pl.malek.freelancebackend.entity.UserEntity;
 import pl.malek.freelancebackend.enums.Role;
 import pl.malek.freelancebackend.exception.UserAlreadyExistException;
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService {
             throw new UserAccountValidationException(getErrorMessages(result.getAllErrors()));
         }
 
-        if (checkIfUserExist(user.getEmail())) {
+        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             log.error(String.format("User already exist with email: %s", user.getEmail()));
             throw new UserAlreadyExistException(String.format("User with email: %s already exist", user.getEmail()));
         }
@@ -93,8 +94,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkIfUserExist(String email) {
-        return userRepository.findByEmail(email).isPresent();
+    public UserExistResponse checkIfUserExist(String email) {
+        return UserExistResponse.builder()
+                .status(userRepository.findByEmail(email).isPresent())
+                .build();
     }
 
     private List<String> getErrorMessages(List<ObjectError> errors) {

@@ -33,16 +33,14 @@ public class UserController {
 
     @PostMapping("/auth")
     public ResponseEntity<?> authenticate(@RequestBody Credentials credentials) throws Exception {
+        log.info("Trying to authenticate by provided credentials");
         return ResponseEntity.status(HttpStatus.OK).body(userService.authenticate(credentials));
     }
 
     @GetMapping("/{email}")
     public ResponseEntity<UserExistResponse> checkIfUserExist(@PathVariable String email) {
-        return ResponseEntity.status(HttpStatus.OK).body(
-                UserExistResponse.builder()
-                        .status(userService.checkIfUserExist(email))
-                        .build()
-        );
+        log.info("Checking if email: " + email + " exist");
+        return ResponseEntity.status(HttpStatus.OK).body(userService.checkIfUserExist(email));
     }
 
 
