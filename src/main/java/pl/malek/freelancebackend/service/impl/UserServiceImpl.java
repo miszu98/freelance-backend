@@ -18,6 +18,7 @@ import org.springframework.validation.ObjectError;
 import pl.malek.freelancebackend.dto.Credentials;
 import pl.malek.freelancebackend.dto.JwtResponse;
 import pl.malek.freelancebackend.entity.UserEntity;
+import pl.malek.freelancebackend.enums.Role;
 import pl.malek.freelancebackend.exception.UserAlreadyExistException;
 import pl.malek.freelancebackend.repository.UserRepository;
 import pl.malek.freelancebackend.dto.User;
@@ -63,6 +64,7 @@ public class UserServiceImpl implements UserService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
 
         UserEntity userEntity = userRepository.save(objectMapper.convertValue(user, UserEntity.class));
         log.info("Saving user to database...");
