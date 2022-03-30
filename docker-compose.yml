@@ -1,4 +1,4 @@
-version: '1.0'
+version: '2.2'
 services:
   postgres:
     container_name: db
@@ -11,9 +11,21 @@ services:
       - 5432:5432
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+  file-uploader:
+    depends_on:
+      - postgres
+    container_name: fileuploader
+    build:
+      context: C:\Users\Michał\Desktop\Freelance.com\file-uploader\
+      dockerfile: Dockerfile
+    ports:
+      - 8077:8077
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/freelance
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
   freelance:
     depends_on:
-      - db
+      - postgres
     container_name: freelance
     build:
       context: .
