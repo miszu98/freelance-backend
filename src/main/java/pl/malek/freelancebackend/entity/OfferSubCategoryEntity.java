@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "service_sub_categories", schema = "services")
-public class ServiceSubCategoryEntity {
+public class OfferSubCategoryEntity {
 
     @Id
     @Column(name = "id")
@@ -20,7 +20,7 @@ public class ServiceSubCategoryEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private ServiceCategoryEntity serviceCategoryEntity;
+    private OfferCategoryEntity offerCategoryEntity;
 
     @Column(name = "short_description", columnDefinition = "TEXT")
     private String shortDescription;

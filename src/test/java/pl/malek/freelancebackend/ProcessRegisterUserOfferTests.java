@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 
 
 @ExtendWith(MockitoExtension.class)
-public class ProcessRegisterUserServiceTests {
+public class ProcessRegisterUserOfferTests {
 
     @Mock
     private ProcessRegisterUserRepository processRegisterUserRepository;

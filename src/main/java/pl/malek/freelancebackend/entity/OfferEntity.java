@@ -1,9 +1,7 @@
 package pl.malek.freelancebackend.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -11,13 +9,14 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user_services", schema = "services")
-public class ServiceEntity {
+public class OfferEntity {
 
     @Id
     @Column(name = "id")
@@ -38,11 +37,19 @@ public class ServiceEntity {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "offerEntity")
+    @JsonProperty("packageTypes")
+    private List<PackageTypeEntity> packageTypeEntities;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity userEntity;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "serviceEntity")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sub_category_id", referencedColumnName = "id")
+    private OfferSubCategoryEntity offerSubCategoryEntity;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "offerEntity")
     private List<CommentEntity> comments;
 
 }

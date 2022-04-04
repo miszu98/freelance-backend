@@ -1,5 +1,6 @@
 package pl.malek.freelancebackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "package_types")
+@Table(name = "package_types", schema = "services")
 public class PackageTypeEntity {
 
     @Id
@@ -30,9 +31,6 @@ public class PackageTypeEntity {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "title", columnDefinition = "TEXT")
-    private String title;
-
     @Column(name = "short_description", columnDefinition = "TEXT")
     private String shortDescription;
 
@@ -40,7 +38,11 @@ public class PackageTypeEntity {
     private Long deliveryTime;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "packageTypeEntity")
+    @JsonProperty("packageDetails")
     private List<PackageDetailsEntity> packageDetailsEntities;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "offer_id", referencedColumnName = "id")
+    private OfferEntity offerEntity;
 
 }

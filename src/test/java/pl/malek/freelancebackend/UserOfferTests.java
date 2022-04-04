@@ -23,7 +23,7 @@ import pl.malek.freelancebackend.service.impl.UserServiceImpl;
 import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTests {
+public class UserOfferTests {
 
     @Mock
     private PasswordEncoder passwordEncoder;

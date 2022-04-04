@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "service_category", schema = "services")
-public class ServiceCategoryEntity {
+public class OfferCategoryEntity {
 
     @Id
     @Column(name = "id")
@@ -30,8 +29,8 @@ public class ServiceCategoryEntity {
     @Column(name = "image")
     private String image; // todo
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "serviceCategoryEntity")
-    private List<ServiceSubCategoryEntity> subCategories;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "offerCategoryEntity")
+    private List<OfferSubCategoryEntity> subCategories;
 
 
 

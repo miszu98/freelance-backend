@@ -56,7 +56,7 @@ public class UserEntity {
     private Role role = Role.USER;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
-    private List<ServiceEntity> serviceEntity;
+    private List<OfferEntity> offerEntity;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
     private List<CommentEntity> comments;
