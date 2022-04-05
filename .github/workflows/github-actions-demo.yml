@@ -5,11 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build app
-      - uses: actions/checkout@v2
-      - run: mvn -Pdev clean install package
+        uses: actions/checkout@v2
+        run: mvn -Pdev clean install package
   tests:
     runs-on: ubuntu-latest
     steps:
       - name: test app
-      - uses: actions/checkout@v2
-      - run: mvn test
+        uses: actions/checkout@v2
+        run: mvn test
