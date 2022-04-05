@@ -14,10 +14,3 @@ jobs:
           cache: maven
       - name: Bulding app
         run: mvn -Pdev -DskipTests clean install package
-  tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-      - name: Testing app
-        run: mvn test
