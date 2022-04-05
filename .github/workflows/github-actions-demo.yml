@@ -13,7 +13,7 @@ jobs:
           distribution: 'adopt'
           cache: maven
       - name: Bulding app
-        run: mvn -Pdev clean install package
+        run: mvn -Pdev -DskipTests clean install package
   tests:
     runs-on: ubuntu-latest
     steps:
