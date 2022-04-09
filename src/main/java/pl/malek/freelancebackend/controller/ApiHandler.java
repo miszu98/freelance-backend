@@ -6,6 +6,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pl.malek.freelancebackend.dto.ExceptionResponse;
+import pl.malek.freelancebackend.exception.OfferValidationException;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
 import pl.malek.freelancebackend.exception.UserAlreadyExistException;
 import pl.malek.freelancebackend.enums.ErrorCode;
@@ -13,6 +14,7 @@ import pl.malek.freelancebackend.utils.Utils;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ApiHandler {
@@ -59,6 +61,16 @@ public class ApiHandler {
                         .messages(Collections.singletonList(e.getMessage()))
                         .build()
         );
+    }
+
+    @ExceptionHandler(OfferValidationException.class)
+    public ResponseEntity<ExceptionResponse> handleOfferValidation(OfferValidationException e) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                ExceptionResponse.builder()
+                        .errorCode(ErrorCode.OFFER_VALIDATION_ERROR)
+                        .errorTime(Utils.formatDate(LocalDateTime.now()))
+                        .messages(e.getMessages().stream().collect(Collectors.toList()))
+                        .build());
     }
 
 }

@@ -15,8 +15,8 @@ import pl.malek.freelancebackend.service.OfferService;
 import pl.malek.freelancebackend.service.PackageDetailsService;
 import pl.malek.freelancebackend.service.PackageTypeService;
 import pl.malek.freelancebackend.utils.ValidatorUtils;
-
 import java.util.List;
+import java.util.Set;
 
 
 @Slf4j
@@ -41,7 +41,7 @@ public class OfferServiceImpl implements OfferService {
         if (isError) {
             log.info("Founded errors while validating");
             log.info("Throwing exception");
-            List<String> messages = validatorUtils.extractErrorMessages(result);
+            Set<String> messages = validatorUtils.extractErrorMessages(result);
             throw new OfferValidationException(messages);
         } else {
             log.info("Not founded errors while validating");
