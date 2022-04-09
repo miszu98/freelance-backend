@@ -13,4 +13,4 @@ jobs:
           distribution: 'adopt'
           cache: maven
       - name: Bulding app
-        run: mvn -Pdev -Djasypt.encryptor.password=${{ENC_KEY}} clean install package
+        run: mvn -Pdev -Djasypt.encryptor.password=${{ secrets.ENC_KEY }} clean install package
