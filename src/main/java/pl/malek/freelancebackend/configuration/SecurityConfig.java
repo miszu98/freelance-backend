@@ -51,6 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/users/").permitAll()
                 .antMatchers(HttpMethod.GET, "/users/{email}").permitAll()
+                .antMatchers(HttpMethod.POST, "/v1/offer").authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .and()
