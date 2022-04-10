@@ -55,6 +55,6 @@ public class UserIntegrationTests {
                 .lastName("test")
                 .build();
         mvc.perform(post("/users/").contentType("application/json").content(objectMapper.writeValueAsString(user)))
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
     }
 }
