@@ -35,7 +35,7 @@ public class OfferServiceImpl implements OfferService {
     private final PackageDetailsService packageDetailsService;
 
     @Override
-    public OfferDetails create(Offer offer, BindingResult result) {
+    public void create(Offer offer, BindingResult result) {
         boolean isError = validatorUtils.validate(result);
 
         if (isError) {
@@ -54,8 +54,6 @@ public class OfferServiceImpl implements OfferService {
 
             packageDetailsService.createPackageDetails(packageTypeEntities);
         }
-
-        return null;
     }
 
 

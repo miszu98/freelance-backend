@@ -26,7 +26,8 @@ public class OfferController {
     @PostMapping
     public ResponseEntity<?> createOffer(@RequestBody @Valid Offer offer, BindingResult result) {
         log.info("Trying to create new offer with title: " + offer.getTitle());
-        return ResponseEntity.status(HttpStatus.OK).body(offerService.create(offer, result));
+        offerService.create(offer, result);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
 
