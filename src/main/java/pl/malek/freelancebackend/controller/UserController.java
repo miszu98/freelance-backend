@@ -28,7 +28,8 @@ public class UserController {
     public ResponseEntity<?> register(@Valid @RequestBody User user, BindingResult result)
             throws UserAccountValidationException, UserAlreadyExistException {
         log.info("Register user running... " + user);
-        return ResponseEntity.status(HttpStatus.OK).body(userService.register(user, result));
+        userService.register(user, result);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/auth")
@@ -40,7 +41,7 @@ public class UserController {
     @GetMapping("/{email}")
     public ResponseEntity<UserExistResponse> checkIfUserExist(@PathVariable String email) {
         log.info("Checking if email: " + email + " exist");
-        return ResponseEntity.status(HttpStatus.OK).body(userService.checkIfUserExist(email));
+        return ResponseEntity.status(HttpStatus.FOUND).body(userService.checkIfUserExist(email));
     }
 
 

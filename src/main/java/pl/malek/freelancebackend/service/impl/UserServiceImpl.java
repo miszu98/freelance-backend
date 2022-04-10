@@ -2,6 +2,7 @@ package pl.malek.freelancebackend.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -26,13 +27,14 @@ import pl.malek.freelancebackend.dto.User;
 import pl.malek.freelancebackend.exception.UserAccountValidationException;
 import pl.malek.freelancebackend.service.ProcessRegisterUserService;
 import pl.malek.freelancebackend.service.UserService;
+import pl.malek.freelancebackend.utils.ValidatorUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @EnableTransactionManagement
 public class UserServiceImpl implements UserService {
 
@@ -50,13 +52,15 @@ public class UserServiceImpl implements UserService {
 
     private final ProcessRegisterUserService processRegisterUserService;
 
+    private final ValidatorUtils validatorUtils;
+
     @Override
     @Transactional
-    public User register(User user, BindingResult result)
+    public void register(User user, BindingResult result)
             throws UserAccountValidationException, UserAlreadyExistException {
         if (result.hasErrors()) {
-            log.error(getErrorMessages(result.getAllErrors()).toString());
-            throw new UserAccountValidationException(getErrorMessages(result.getAllErrors()));
+            log.error(validatorUtils.extractErrorMessages(result).toString());
+            throw new UserAccountValidationException(validatorUtils.extractErrorMessages(result));
         }
 
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
@@ -71,8 +75,6 @@ public class UserServiceImpl implements UserService {
         log.info("Saving user to database...");
 
         processRegisterUserService.saveProcess(userEntity);
-
-        return objectMapper.convertValue(userEntity, User.class);
     }
 
     @Override
@@ -98,11 +100,6 @@ public class UserServiceImpl implements UserService {
         return UserExistResponse.builder()
                 .status(userRepository.findByEmail(email).isPresent())
                 .build();
-    }
-
-    private List<String> getErrorMessages(List<ObjectError> errors) {
-        return errors.stream().map(ObjectError::getDefaultMessage)
-                .collect(Collectors.toList());
     }
 
 }

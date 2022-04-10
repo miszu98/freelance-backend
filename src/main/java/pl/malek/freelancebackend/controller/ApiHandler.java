@@ -13,8 +13,8 @@ import pl.malek.freelancebackend.enums.ErrorCode;
 import pl.malek.freelancebackend.utils.Utils;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ApiHandler {
@@ -25,7 +25,7 @@ public class ApiHandler {
                 ExceptionResponse.builder()
                         .errorCode(ErrorCode.USER_VALIDATION_ERROR)
                         .errorTime(Utils.formatDate(LocalDateTime.now()))
-                        .messages(e.getMessages())
+                        .messages(new ArrayList<>(e.getMessages()))
                         .build()
         );
     }
@@ -69,7 +69,7 @@ public class ApiHandler {
                 ExceptionResponse.builder()
                         .errorCode(ErrorCode.OFFER_VALIDATION_ERROR)
                         .errorTime(Utils.formatDate(LocalDateTime.now()))
-                        .messages(e.getMessages().stream().collect(Collectors.toList()))
+                        .messages(new ArrayList<>(e.getMessages()))
                         .build());
     }
 
