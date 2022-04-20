@@ -41,7 +41,7 @@ public class UserController {
     @GetMapping("/{email}")
     public ResponseEntity<UserExistResponse> checkIfUserExist(@PathVariable String email) {
         log.info("Checking if email: " + email + " exist");
-        return ResponseEntity.status(HttpStatus.FOUND).body(userService.checkIfUserExist(email));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.checkIfUserExist(email));
     }
 
 
